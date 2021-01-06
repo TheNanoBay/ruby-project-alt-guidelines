@@ -13,8 +13,14 @@ class CommandLineInterface
         greet 
         new_team = Team.first #--> .find_by(user input)
         new_team.sign_new_player("Stefon Diggs", 3, 50.3)
+
+        puts new_team.view_all_players_for_team_ever
+        puts new_team.view_all_contracts_for_team_ever 
+
+        
         #run - recursion step
       end
+
 
 
       #clears terminal screen 
