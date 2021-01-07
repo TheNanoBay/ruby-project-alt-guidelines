@@ -4,6 +4,7 @@ class CommandLineInterface
         greet
         puts " "
         user_chooses_team
+        change_player_contract_terms
         view_current_team_contracts
         view_current_team_players
         release_player_from_team
@@ -61,49 +62,33 @@ class CommandLineInterface
       end
 
 
-
-
-      # def choose_crud
-      #   puts "Please choose one of the following actions to do by entering the associated number: "
-      #   puts "1) Sign a free agent to your Team"
-      #   puts "2) View all the player contracts for your Team"
-      #   puts "3) View all the players on your Team"
-      #   puts "4) Change the terms of the contract for one of your players"
-      #   puts "5) Release a player from your Team"
-      #   crud_choice = get_user_input
-      #   case crud_choice
-      #   when "1"
-      #       #fill in with method call to create a new contract based on user input
-      #   when "2"
-      #   when "3"
-      #   when "4"
-      #   when "5"
-          # release_player_from_team
-      #   when "Q" || "QUIT"
-      #   when "R" || "RESTART"
-      #     run
-      #   else
-      #       puts "Oops... not a valid choice... Please try again"
-      #   end
-      # end
-
-      # def get_new_contract_terms
-      #   puts "Please enter the name of the player you wish to sign"
-      #   player_choice = get_user_input
-      #   case player_choice
-      #    when "1"
-      #       #fill in with method call to create a new contract based on user input
-      #   when "2"
-      #   when "3"
-      #   when "4"
-      #   when "5"
-      #   when "Q" || "QUIT"
-      #   when "R" || "RESTART"
-      #     run
-      #   else
-      #       puts "Oops... not a valid choice... Please try again"
-      #   end
-      #   end
+      def choose_crud
+        puts "Please choose one of the following actions to do by entering the associated number: "
+        puts "1) Sign a free agent to your Team"
+        puts "2) View all the player contracts for your Team"
+        puts "3) View all the players on your Team"
+        puts "4) Change the terms of the contract for one of your players"
+        puts "5) Release a player from your Team"
+        crud_choice = get_user_input
+        case crud_choice
+        when "1"
+            get_new_contract_terms
+            #fill in with method call to create a new contract based on user input
+        when "2"
+          view_current_team_contracts
+        when "3"
+          view_current_team_players
+        when "4"
+            change_player_contract_terms
+        when "5"
+           release_player_from_team
+        when "Q" || "QUIT"
+        when "R" || "RESTART"
+          run
+        else
+            puts "Oops... not a valid choice... Please try again"
+        end
+      end
 
       def view_current_team_contracts
         puts "These are all the contracts for #{@user_team.name}"
@@ -117,6 +102,30 @@ class CommandLineInterface
         puts "These are all the players that play for #{@user_team.name}"
         pause
         puts "#{index+1} #{name}."
+        end
+      end
+
+      def change_player_contract_terms
+      current_team_players =  @user_team.view_all_player_names
+       current_team_players.each_with_index do |name, index|
+        puts "#{index+1} #{name}."
+        end
+        puts "Please enter the name of the player who's contract you wish to change."
+        user_p_name = get_user_input
+        case
+        when current_team_players.include?(user_p_name)
+          puts "Please enter the new contract length."
+          new_length = get_user_input
+          puts "Please enter the new contract value."
+          new_value = get_user_input
+          @user_team.change_contract_terms(user_p_name, new_value, new_length)
+        when "Q" || "QUIT"
+        when "R" || "RESTART"
+          run
+        else
+            puts "Oops... not a valid choice... Please try again"
+            pause
+            change_player_contract_terms
         end
       end
 
@@ -142,11 +151,6 @@ class CommandLineInterface
       end
 
 
-
-
-
-
-
       #gets terminal input from user
       def get_user_input
         gets.chomp
@@ -168,6 +172,4 @@ class CommandLineInterface
         puts "\n"
         pause
       end
-
-
 end
