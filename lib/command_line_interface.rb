@@ -4,6 +4,8 @@ class CommandLineInterface
         greet
         puts " "
         user_chooses_team
+        view_current_team_contracts
+        view_current_team_players
         release_player_from_team
       end
         #choose_crud
@@ -59,6 +61,8 @@ class CommandLineInterface
       end
 
 
+
+
       # def choose_crud
       #   puts "Please choose one of the following actions to do by entering the associated number: "
       #   puts "1) Sign a free agent to your Team"
@@ -66,9 +70,7 @@ class CommandLineInterface
       #   puts "3) View all the players on your Team"
       #   puts "4) Change the terms of the contract for one of your players"
       #   puts "5) Release a player from your Team"
-
       #   crud_choice = get_user_input
-
       #   case crud_choice
       #   when "1"
       #       #fill in with method call to create a new contract based on user input
@@ -85,11 +87,9 @@ class CommandLineInterface
       #   end
       # end
 
-
       # def get_new_contract_terms
       #   puts "Please enter the name of the player you wish to sign"
       #   player_choice = get_user_input
-
       #   case player_choice
       #    when "1"
       #       #fill in with method call to create a new contract based on user input
@@ -103,10 +103,22 @@ class CommandLineInterface
       #   else
       #       puts "Oops... not a valid choice... Please try again"
       #   end
-
       #   end
 
+      def view_current_team_contracts
+        puts "These are all the contracts for #{@user_team.name}"
+        pause
+        @user_team.view_all_contracts_for_team_ever
+      end
 
+      def view_current_team_players
+        current_team_players = @user_team.view_all_player_names
+        current_team_players.each_with_index do |name, index|
+        puts "These are all the players that play for #{@user_team.name}"
+        pause
+        puts "#{index+1} #{name}."
+        end
+      end
 
       def release_player_from_team
        current_team_players =  @user_team.view_all_player_names
