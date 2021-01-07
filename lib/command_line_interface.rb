@@ -8,9 +8,7 @@ class CommandLineInterface
         choose_crud
         pause
         run
-        #get_new_contract_terms
-        #view_current_team_contracts
-        #release_player_from_team
+
       end
 
 
@@ -75,7 +73,7 @@ class CommandLineInterface
         when "4"
             change_player_contract_terms
         when "5"
-          release_player_from_team
+            release_player_from_team
         when "Q" || "QUIT"
         when "R" || "RESTART"
           run
@@ -204,6 +202,4 @@ class CommandLineInterface
         puts "\n"
         pause
       end
-
-
 end

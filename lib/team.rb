@@ -17,7 +17,7 @@ class Team < ActiveRecord::Base
     def view_all_contracts_for_team_ever
         self.contracts.map do |contract|
             player_name = Player.find(contract.player_id).name
-            "#{player_name} signed with #{self.name} for #{contract.total_length} years and it's worth #{contract.total_value} million dollars."
+           puts "#{player_name} signed with #{self.name} for #{contract.total_length} years and it's worth #{contract.total_value} million dollars."
         end
     end
 
@@ -32,7 +32,7 @@ class Team < ActiveRecord::Base
     #read feature - As a user, I want to be able to browse all the current players & all the players signed to a team (Read)
     def view_all_players_for_team_ever
         self.players.map do |player|
-            "#{player.name} played for the #{self.name} and had the following stats -> Position: #{player.position} Height: #{player.height} Weight: #{player.weight}"
+            puts "#{player.name} played for the #{self.name} and had the following stats -> Position: #{player.position} Height: #{player.height} Weight: #{player.weight}"
         end
     end
 
@@ -43,7 +43,7 @@ class Team < ActiveRecord::Base
 
         adjusted_contract = old_contract.update(total_value: new_value, total_length: new_length)
 
-        "#{player_name} is now signed with #{self.name} for #{adjusted_contract[0].total_length} years and it's worth #{adjusted_contract[0].total_value} million dollars."
+        puts "#{player_name} is now signed with #{self.name} for #{adjusted_contract[0].total_length} years and it's worth #{adjusted_contract[0].total_value} million dollars."
     end
 
     # Delete feature - As a user, I want to delete a contract with a player.. fire them (delete)
