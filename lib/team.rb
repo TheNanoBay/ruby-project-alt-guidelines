@@ -21,8 +21,12 @@ class Team < ActiveRecord::Base
         end
     end
 
-    def view_all_player_names
+    def view_all_current_team_player_names
         self.players.map {|player| player.name}
+    end
+
+    def view_all_teams_player_names 
+        Player.pluck(:name)
     end
 
     #read feature - As a user, I want to be able to browse all the current players & all the players signed to a team (Read)
@@ -50,4 +54,13 @@ class Team < ActiveRecord::Base
 
         puts "#{player_name} is now released from the #{self.name}."
     end
+
+    #called to break the contract of a player with another team so he can be re-signed with this team
+    def break_other_team_contract(player_name)
+        breaking_player_id = Player.find_by(name: player_name).id
+        deleted_contract = Contract.find_by(player_id: breaking_player_id)
+        deleted_contract.destroy
+    end
+
+
 end
