@@ -183,9 +183,6 @@ class CommandLineInterface
       end
 
 
-
-
-
       #gets terminal input from user
       def get_user_input
         gets.chomp
