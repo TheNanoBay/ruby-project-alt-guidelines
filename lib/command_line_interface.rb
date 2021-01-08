@@ -67,6 +67,7 @@ class CommandLineInterface
             menu.choice "Sign a new player to your Team"
             menu.choice "View all the player contracts for your Team"
             menu.choice "View all the players on your Team"
+            menu.choice "View all the stats of your Players"
             menu.choice "Change the terms of the contract for one of your players"
             menu.choice "Release a player from your Team"
             menu.choice "QUIT"
@@ -81,6 +82,8 @@ class CommandLineInterface
               view_current_team_contracts
         when "View all the players on your Team"
               view_current_team_players
+        when "View all the stats of your Players"
+              view_current_team_players_stats
         when "Change the terms of the contract for one of your players"
             change_player_contract_terms
         when "Release a player from your Team"
@@ -143,6 +146,10 @@ class CommandLineInterface
         current_team_players.each_with_index do |name, index|
         puts "#{index+1} #{name}."
         end
+      end
+
+      def view_current_team_players_stats
+        @user_team.view_all_players_for_team_ever
       end
 
       #-------------------------Update CRUD feature---------------------------------------------
@@ -226,7 +233,7 @@ class CommandLineInterface
 
       #longer terminal pause 
       def long_pause 
-        sleep 2
+        sleep 4
       end 
 
       #creates a divider between code in terminal

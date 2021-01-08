@@ -33,7 +33,7 @@ class Team < ActiveRecord::Base
     #read feature - As a user, I want to be able to browse all the current players & all the players signed to a team (Read)
     def view_all_players_for_team_ever
         self.players.map do |player|
-            puts "#{player.name} played for the #{self.name} and had the following stats -> Position: #{player.position} Height: #{player.height} Weight: #{player.weight}"
+            puts "#{player.name} has the following stats -> Position: #{player.position} Height: #{player.height} Weight: #{player.weight}"
         end
     end
 
