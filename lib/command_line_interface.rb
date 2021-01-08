@@ -14,9 +14,11 @@ class CommandLineInterface
 
 
       def greet
+        render_ascii_art
         puts 'Welcome to the 2020 NFL Contract Report, the best resource for Football contract data.'
         puts " "
         puts 'This application models the ability of an NFL team to manaage its respective player contracts.'
+        puts " "
       end
 
 
@@ -50,7 +52,7 @@ class CommandLineInterface
         when "RESTART"
           run
         else
-            puts "Oops... not a valid choice... please try again"
+            oops
             pause
             user_chooses_team
         end
@@ -88,7 +90,7 @@ class CommandLineInterface
         when "RESTART"
           run
         else
-            puts "Oops... not a valid choice... Please try again"
+            oops
             choose_crud
         end
       end
@@ -103,8 +105,7 @@ class CommandLineInterface
         player_choice = get_user_input
 
 
-        if all_teams_players.include?(player_choice)  
-            #binding.pry 
+        if all_teams_players.include?(player_choice)   
             puts "Please enter the total value of the contract: ___ million(s)."
             player_contract_value = get_user_input
             puts "Please enter the total length of the contract: ___ year(s)."
@@ -119,8 +120,7 @@ class CommandLineInterface
             when "R" || "RESTART"
                 run
             else
-            #binding.pry
-            puts "Oops... not a valid player choice... Please try again"
+            oops
             pause 
             get_new_contract_terms
             end
@@ -141,7 +141,6 @@ class CommandLineInterface
         puts "These are all the players that play for #{@user_team.name}:"
         divider
         current_team_players.each_with_index do |name, index|
-        # puts "These are all the players that play for #{@user_team.name}"
         puts "#{index+1} #{name}."
         end
       end
@@ -171,7 +170,7 @@ class CommandLineInterface
             when "R" || "RESTART"
                 run
             else
-              puts "Oops... not a valid choice... Please try again"
+              oops
               pause
               change_player_contract_terms
             end
@@ -179,29 +178,30 @@ class CommandLineInterface
         end
         #---------------------Delete CRUD feature-------------------------------------------
 
-      def release_player_from_team
-       current_team_players =  @user_team.view_all_current_team_player_names
-       
-       current_team_players.each_with_index do |name, index|
-        puts "#{index+1} #{name}."
-        end
-        puts "Please enter the name of the player you wish to release."
-        puts "\n ~~ (Q)uit or (R)estart ~~"
+        def release_player_from_team
+          current_team_players =  @user_team.view_all_current_team_player_names
+          current_team_players.each_with_index do |name, index|
+           puts "#{index+1} #{name}."
+           end
+           puts "Please enter the name of the player you wish to release."
+           puts "\n ~~ (Q)uit or (R)estart ~~"
+           user_player_name = get_user_input 
 
-        user_player_name = get_user_input
-        case user_player_name
-        when current_team_players.include?(user_player_name)
-          @user_team.break_contract(user_player_name)
-        when "Q" || "QUIT"
-            exit_program
-        when "R" || "RESTART"
-          run
-        else
-            puts "Oops... not a valid choice... Please try again"
-            pause
-            release_player_from_team
-        end
-      end
+           if current_team_players.include?(user_player_name)
+             @user_team.break_contract(user_player_name)
+          else
+              case user_player_name
+              when "Q" || "QUIT"
+                  exit_program
+              when "R" || "RESTART"
+                  run
+              else
+              oops
+              pause
+              release_player_from_team
+              end
+            end
+         end
 
 
       #cuts out of program 
@@ -226,7 +226,7 @@ class CommandLineInterface
 
       #longer terminal pause 
       def long_pause 
-        sleep 7
+        sleep 2
       end 
 
       #creates a divider between code in terminal
@@ -235,5 +235,16 @@ class CommandLineInterface
         puts "\n"
         pause
       end
+
+      def render_ascii_art
+        read_file = File.read("lib/football_art.txt") 
+        puts read_file
+      end
+
+      def oops
+        puts "Oops... not a valid player choice... Please try again"
+        `say Oops that is not a valid choice`
+      end
+
 end
 

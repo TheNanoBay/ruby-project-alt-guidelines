@@ -27,7 +27,8 @@
 
 
 
-
+# License
+* This project is licensed under the terms of the Learn.co Educational Content License
 
 
 

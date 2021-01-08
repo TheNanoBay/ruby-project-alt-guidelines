@@ -9,6 +9,7 @@ class Team < ActiveRecord::Base
        new_contract = Contract.create(player_id: signing_player.id, team_id: self.id, total_value: value_of_contract, total_length: length_of_contract)
 
        puts "It's signed! #{signing_player.name} now plays for #{self.name}."
+       `say Congratulations, #{player_name} is now signed `
        puts " "
        new_contract
     end
@@ -44,6 +45,7 @@ class Team < ActiveRecord::Base
         adjusted_contract = old_contract.update(total_value: new_value, total_length: new_length)
 
         puts "#{player_name} is now signed with #{self.name} for #{adjusted_contract[0].total_length} years and it's worth #{adjusted_contract[0].total_value} million dollars."
+        `say The contract terms have been adjusted.`
     end
 
     # Delete feature - As a user, I want to delete a contract with a player.. fire them (delete)
@@ -53,6 +55,7 @@ class Team < ActiveRecord::Base
         deleted_contract.destroy
 
         puts "#{player_name} is now released from the #{self.name}."
+        `say #{player_name} is now released from the #{self.name}.`
     end
 
     #called to break the contract of a player with another team so he can be re-signed with this team
