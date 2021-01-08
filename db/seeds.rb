@@ -58,3 +58,38 @@ roquan_smith = Player.create(name: "Roquan Smith", age: 23, height: "6'0", weigh
 bears = Team.create(name: "Chicago Bears", head_coach_name: "Matt Nagy")
 
 contract_6 = Contract.create(player_id: roquan_smith.id, team_id: bears.id, total_value: 27.0, total_length: 3)
+
+
+#---------------------------------------6--------------------------------------------------------- 
+
+
+matthew_stafford = Player.create(name: "Matthew Stafford", age: 32, height: "6'3", weight: 220, position: "quarterback")
+#Team --> Detroit Lions
+contract_7 = Contract.create(player_id: matthew_stafford.id, team_id: lions.id, total_value: 135, total_length: 5)
+
+
+#---------------------------------------7---------------------------------------------------------
+
+
+khalil_mac = Player.create(name: "Khalil Mac", age: 29, height: "6'3", weight: 260, position: "outside linebacker")
+#Team --> Chicago Bears
+contract_8 = Contract.create(player_id: khalil_mac.id, team_id: bears.id, total_value: 141, total_length: 6)
+
+
+#---------------------------------------8---------------------------------------------------------
+
+
+patrick_mahomes = Player.create(name: "Patrick Mahomes", age: 25, height: "6'3", weight: 230, position: "quarterback")
+#Team --> Kansas City Chiefs
+contract_9 = Contract.create(player_id: patrick_mahomes.id, team_id: chiefs.id, total_value: 503, total_length: 10)
+
+
+#---------------------------------------9---------------------------------------------------------
+
+
+josh_allan = Player.create(name: "Josh Allan", age: 24, height: "6'5", weight: 237, position: "quarterback")
+#Team --> Buffalo Bills
+contract_10 = Contract.create(player_id: josh_allan.id, team_id: bills.id, total_value: 21, total_length: 4)
+
+
+#---------------------------------------10---------------------------------------------------------

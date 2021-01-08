@@ -1,12 +1,13 @@
 class CommandLineInterface
 
       def run
-        greet
+        clear_terminal
+        greet #1
         puts " "
-        user_chooses_team
+        user_chooses_team  #2
         pause
-        choose_crud
-        long_pause 
+        choose_crud   #3
+        long_pause  #4
         run
 
       end
@@ -15,36 +16,38 @@ class CommandLineInterface
       def greet
         puts 'Welcome to the 2020 NFL Contract Report, the best resource for Football contract data.'
         puts " "
-        puts 'This application models the ability of an NFL team to manaage its respective player contracts'
+        puts 'This application models the ability of an NFL team to manaage its respective player contracts.'
       end
 
 
       #---------User chooses what team they would like to represent---------------------
       def user_chooses_team
-        puts "Please choose a team from the list below to manage by entering in the associated number"
-        puts "1) Minnesota Vikings"
-        puts "2) Detroit Lions"
-        puts "3) Buffalo Bills"
-        puts "4) Kansas City Chiefs"
-        puts "5) Chicago Bears"
-        puts "\n ~~ (Q)uit or (R)estart ~~"
 
-        team_choice = get_user_input
+        prompt = TTY::Prompt.new
+        team_choice = prompt.select("Please choose a team from the list below to manage:") do |menu|
+          menu.choice "Minnesota Vikings"
+          menu.choice "Detroit Lions"
+          menu.choice "Buffalo Bills"
+          menu.choice "Kansas City Chiefs"
+          menu.choice "Chicago Bears"
+          menu.choice "QUIT"
+          menu.choice "RESTART"
+        end
 
         case team_choice
-        when "1"
+        when "Minnesota Vikings"
             @user_team = Team.find_by(name: "Minnesota Vikings")   #------> consider refactoring
-        when "2"
+        when "Detroit Lions"
             @user_team = Team.find_by(name: "Detroit Lions")
-        when "3"
+        when "Buffalo Bills"
             @user_team = Team.find_by(name: "Buffalo Bills")
-        when "4"
+        when "Kansas City Chiefs"
             @user_team = Team.find_by(name: "Kansas City Chiefs")
-        when "5"
+        when "Chicago Bears"
             @user_team = Team.find_by(name: "Chicago Bears")
-        when "Q" || "QUIT"
+        when "QUIT"
             exit_program
-        when "R" || "RESTART"
+        when "RESTART"
           run
         else
             puts "Oops... not a valid choice... please try again"
@@ -56,35 +59,37 @@ class CommandLineInterface
       #---------------user chooses what CRUD feature they would like to work with on the team----------------
       def choose_crud
         clear_terminal
-        puts " "
-        puts "Please choose one of the following actions to do by entering the associated number: "
-        puts "1) Sign a new player to your Team"
-        puts "2) View all the player contracts for your Team"
-        puts "3) View all the players on your Team"
-        puts "4) Change the terms of the contract for one of your players"
-        puts "5) Release a player from your Team"
-        puts "\n ~~ (Q)uit or (R)estart ~~"
 
+        prompt = TTY::Prompt.new
+        crud_choice = prompt.select("Please choose one of the following actions to do:") do |menu|
+            menu.choice "Sign a new player to your Team"
+            menu.choice "View all the player contracts for your Team"
+            menu.choice "View all the players on your Team"
+            menu.choice "Change the terms of the contract for one of your players"
+            menu.choice "Release a player from your Team"
+            menu.choice "QUIT"
+            menu.choice "RESTART"
+        end
 
-        crud_choice = get_user_input
 
         case crud_choice
-        when "1"
+        when "Sign a new player to your Team"
               get_new_contract_terms
-        when "2"
+        when "View all the player contracts for your Team"
               view_current_team_contracts
-        when "3"
+        when "View all the players on your Team"
               view_current_team_players
-        when "4"
+        when "Change the terms of the contract for one of your players"
             change_player_contract_terms
-        when "5"
+        when "Release a player from your Team"
             release_player_from_team
-        when "Q" || "QUIT"
+        when "QUIT"
             exit_program
-        when "R" || "RESTART"
+        when "RESTART"
           run
         else
             puts "Oops... not a valid choice... Please try again"
+            choose_crud
         end
       end
 
@@ -201,7 +206,7 @@ class CommandLineInterface
 
       #cuts out of program 
       def exit_program
-      abort("say goodbye to your computer")
+      abort("----- Thank you --- GoodBye ----")
       end
 
       #gets terminal input from user
@@ -232,38 +237,3 @@ class CommandLineInterface
       end
 end
 
-
-
-
-
-
-
-
-
-
-
-
-
-# case player_choice  
-# when "Stefon Diggs"       #all_teams_players.include?(player_choice) == true
-#     binding.pry 
-#     puts "Please enter the total value of the contract: ___ million(s)."
-#     player_contract_value = get_user_input
-#     puts "Please enter the total length of the contract: ___ year(s)."
-#     player_contract_length = get_user_input
-
-#     @user_team.break_other_team_contract(player_choice) #breaks the existing contract of a player your are wishing to sign 
-#     @user_team.sign_new_player(player_choice, player_contract_value, player_contract_length) #call to create new contract based on user input
-
-# when "Q" || "QUIT"
-#     puts "quit"
-# when "R" || "RESTART"
-#     puts "restart"
-#   #run
-# when all_teams_players.exclude?(player_choice) 
-#     binding.pry
-#     puts "Oops... not a valid choice... Please try again"
-#     pause 
-#     get_new_contract_terms
-# end
-# end
